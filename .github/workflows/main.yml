@@ -1,0 +1,61 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        environment:
+          - { branch: 'main', environment_name: 'prd', resource_group: 'wus2-ce-prod-rg', location: 'westus2' }
+          - { branch: 'dev', environment_name: 'dev', resource_group: 'wus2-ce-dev-rg', location: 'westus2' }
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Log in to Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy ARM Template (Production)
+      if: github.ref == 'refs/heads/main'
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.prod.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
+          echo "APP_NAME=$output" >> $GITHUB_ENV
+
+    - name: Deploy ARM Template (Development)
+      if: github.ref == 'refs/heads/dev'
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.dev.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
+          echo "APP_NAME=$output" >> $GITHUB_ENV
+
+    - name: Deploy to Azure Web App (${{ matrix.environment.environment_name }})
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.APP_NAME }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_${{ env.APP_NAME }} }}
+        package: '.'
