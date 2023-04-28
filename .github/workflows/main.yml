@@ -54,9 +54,12 @@ jobs:
           echo "APP_NAME=$output" >> $GITHUB_ENV
 
     - name: Deploy to Azure Web App (${{ matrix.environment.environment_name }})
+      env:
+        PUBLISH_PROFILE: ${{ secrets[format('AzureAppService_PublishProfile_{0}', env.APP_NAME)] }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.APP_NAME }}
-        publish-profile: ${{ secrets[format('AzureAppService_PublishProfile_{0}', env.APP_NAME)] }}
+        publish-profile: ${{ env.PUBLISH_PROFILE }}
         package: '.'
+
 
