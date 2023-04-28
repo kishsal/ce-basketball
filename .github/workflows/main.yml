@@ -39,7 +39,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: azure/CLI@v1
       with:
-        azcliversion: 2.0.72
+        azcliversion: 2.2.0
         inlineScript: |
           output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.prod.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
           echo "APP_NAME=$output" >> $GITHUB_ENV
@@ -48,7 +48,7 @@ jobs:
       if: github.ref == 'refs/heads/dev'
       uses: azure/CLI@v1
       with:
-        azcliversion: 2.0.72
+        azcliversion: 2.2.0
         inlineScript: |
           output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.dev.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
           echo "APP_NAME=$output" >> $GITHUB_ENV
