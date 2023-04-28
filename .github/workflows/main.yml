@@ -31,7 +31,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Retrieve APP_NAME output variable
+      - name: Retrieve APP_NAME output variable (before)
         run: |
           echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
 
@@ -42,13 +42,10 @@ jobs:
           inlineScript: |
             az group create --name wus2-ce-dev-rg --location westus2
             az deployment group create --resource-group wus2-ce-dev-rg --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.dev.parameters.json --parameters location=westus2
-            echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
-      - name: Get app name
+      - name: Retrieve APP_NAME output variable (after)
         run: |
-          az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv > appname.txt
-          APP_NAME=$(cat appname.txt | jq -r .)
-          echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
+          echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App (dev)
         uses: azure/webapps-deploy@v2
@@ -92,14 +89,12 @@ jobs:
           azcliversion: 2.48.1
           inlineScript: |
             az group create --name wus2-ce-prd-rg --location westus2
-            az deployment group create --resource-group wus2-ce-prod-rg --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.prod.parameters.json --parameters location=westus2
-            echo "APP_NAME=$(az deployment group show -g wus2-ce-prod-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
+            az deployment group create --resource-group wus2-ce-prd-rg --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.prod.parameters.json --parameters location=westus2
+            echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
-      - name: Get app name
+      - name: Retrieve APP_NAME output variable (after)
         run: |
-          az deployment group show -g wus2-ce-prod-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv > appname.txt
-          APP_NAME=$(cat appname.txt | jq -r .)
-          echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
+          echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App (prod)
         uses: azure/webapps-deploy@v2
