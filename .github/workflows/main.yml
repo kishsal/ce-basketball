@@ -45,12 +45,12 @@ jobs:
           echo "APP_NAME=$output" >> $GITHUB_ENV
 
     - name: Production approval
-        if: matrix.environment.environment_name == 'prod'
-        uses: azure/app-service-manage@v0
-        with:
-          azureSubscription: ${{ secrets.AZURE_SUBSCRIPTION }}
-          action: 'approve'
-          app-name: ${{ env.APP_NAME }}
+      if: matrix.environment.environment_name == 'prod'
+      uses: azure/app-service-manage@v0
+      with:
+        azureSubscription: ${{ secrets.AZURE_SUBSCRIPTION }}
+        action: 'approve'
+        app-name: ${{ env.APP_NAME }}
 
     - name: Deploy ARM Template (Development)
       if: github.ref == 'refs/heads/dev'
