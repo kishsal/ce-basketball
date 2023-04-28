@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "webAppName": {
-        "value": "<your-dev-web-app-name>"
+        "value": "wus2-ce-dev-app01"
       },
       "appServicePlanName": {
-        "value": "<your-dev-app-service-plan-name>"
+        "value": "F1"
       }
     }
   }
