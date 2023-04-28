@@ -45,9 +45,7 @@ jobs:
             echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n MyAppService --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Set output variable for app name
-        id: set_output_var
-        run: |
-          echo "::set-output name=APP_NAME::${{ env.APP_NAME }}"
+        run: echo "{APP_NAME}={env.APP_NAME}" >> $GITHUB_OUTPUT
 
       - name: Deploy to Azure Web App (dev)
         uses: azure/webapps-deploy@v2
@@ -95,9 +93,7 @@ jobs:
             echo "APP_NAME=$(az deployment group show -g wus2-ce-prod-rg -n MyAppService --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Set output variable for app name
-        id: set_output_var
-        run: |
-          echo "::set-output name=APP_NAME::${{ env.APP_NAME }}"
+        run: echo "{APP_NAME}={env.APP_NAME}" >> $GITHUB_OUTPUT
 
       - name: Deploy to Azure Web App (prod)
         uses: azure/webapps-deploy@v2
