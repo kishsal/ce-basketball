@@ -45,7 +45,6 @@ jobs:
             echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Get app name
-        id: get_app_name
         run: |
           az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv > appname.txt
           APP_NAME=$(cat appname.txt | jq -r .)
@@ -97,7 +96,6 @@ jobs:
             echo "APP_NAME=$(az deployment group show -g wus2-ce-prod-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Get app name
-        id: get_app_name
         run: |
           az deployment group show -g wus2-ce-prod-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv > appname.txt
           APP_NAME=$(cat appname.txt | jq -r .)
