@@ -1,0 +1,23 @@
+[
+    {
+        "game": 1,
+        "date": "2023-04-01",
+        "points": 15,
+        "rebounds": 8,
+        "assists": 3
+    },
+    {
+        "game": 2,
+        "date": "2023-04-05",
+        "points": 20,
+        "rebounds": 10,
+        "assists": 5
+    },
+    {
+        "game": 3,
+        "date": "2023-04-10",
+        "points": 12,
+        "rebounds": 7,
+        "assists": 4
+    }
+]

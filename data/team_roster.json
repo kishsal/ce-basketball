@@ -1,0 +1,17 @@
+[
+    {
+        "name": "John Doe",
+        "number": 23,
+        "position": "Guard"
+    },
+    {
+        "name": "Jane Smith",
+        "number": 12,
+        "position": "Forward"
+    },
+    {
+        "name": "Alex Brown",
+        "number": 33,
+        "position": "Center"
+    }
+]
