@@ -87,4 +87,9 @@ jobs:
             az deployment group create --resource-group wus2-ce-prod-rg --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.prod.parameters.json --parameters location=westus2
             echo "::set-output name=app-name::$(az deployment group show -g wus2-ce-prod-rg -n MyAppService --query 'properties.outputs.appName.value' -o tsv)"
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App (prod)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ steps.deploy_arm_template.outputs.app-name }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_prd }}
+          package: '.'
