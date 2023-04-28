@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Wait for output variable
-        uses: jakejarvis/wait-action@v1.5.0
+        uses: jakejarvis/wait-action@v1.7.0
         with:
           time: '2m'
           message: 'Waiting for APP_NAME output variable...'
@@ -90,7 +90,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Wait for output variable
-        uses: jakejarvis/wait-action@v1.5.0
+        uses: jakejarvis/wait-action@v1.7.0
         with:
           time: '2m'
           message: 'Waiting for APP_NAME output variable...'
