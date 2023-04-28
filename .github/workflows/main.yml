@@ -29,7 +29,7 @@ jobs:
       - name: Deploy ARM Template (dev)
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.2.0
           inlineScript: |
             az deployment group create --resource-group wus2-ce-dev-rg --template-file azuredeploy.json --parameters @azuredeploy.dev.parameters.json --parameters location=westus2
             echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n MyAppService --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
@@ -70,7 +70,7 @@ jobs:
       - name: Deploy ARM Template (prod)
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.2.0
           inlineScript: |
             az deployment group create --resource-group wus2-ce-prod-rg --template-file azuredeploy.json --parameters @azuredeploy.prod.parameters.json --parameters location=westus2
             echo "APP_NAME=$(az deployment group show -g wus2-ce-prod-rg -n MyAppService --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
