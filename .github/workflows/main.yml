@@ -41,8 +41,16 @@ jobs:
       with:
         azcliversion: 2.2.0
         inlineScript: |
-          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.prod.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
+          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.prod.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
           echo "APP_NAME=$output" >> $GITHUB_ENV
+
+    - name: Production approval
+        if: matrix.environment.environment_name == 'prod'
+        uses: azure/app-service-manage@v0
+        with:
+          azureSubscription: ${{ secrets.AZURE_SUBSCRIPTION }}
+          action: 'approve'
+          app-name: ${{ env.APP_NAME }}
 
     - name: Deploy ARM Template (Development)
       if: github.ref == 'refs/heads/dev'
@@ -50,7 +58,7 @@ jobs:
       with:
         azcliversion: 2.2.0
         inlineScript: |
-          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file azuredeploy.json --parameters @azuredeploy.dev.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
+          output=$(az deployment group create --resource-group ${{ matrix.environment.resource_group }} --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.dev.parameters.json --parameters location=${{ matrix.environment.location }} --query 'properties.outputs.appName.value' -o tsv)
           echo "APP_NAME=$output" >> $GITHUB_ENV
 
     - name: Deploy to Azure Web App (${{ matrix.environment.environment_name }})
