@@ -31,6 +31,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create Resource Group (dev)
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: az group create --name wus2-ce-dev-rg --location westus2
+
       - name: Deploy ARM Template (dev)
         uses: azure/CLI@v1
         with:
@@ -76,6 +82,12 @@ jobs:
         with:
           time: '24h'
           message: 'Please approve the deployment'
+
+      - name: Create Resource Group (prd)
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: az group create --name wus2-ce-prd-rg --location westus2
 
       - name: Deploy ARM Template (prod)
         uses: azure/CLI@v1
