@@ -15,7 +15,7 @@
         "description": "The location to deploy the resources."
       }
     },
-    "skuName": {
+    "appServicePlanName": {
       "type": "string",
       "defaultValue": "F1",
       "metadata": {
@@ -30,7 +30,7 @@
       "name": "[concat(parameters('webAppName'), '-plan')]",
       "location": "[parameters('location')]",
            "sku": {
-        "name": "[parameters('skuName')]"
+        "name": "[parameters('appServicePlanName')]"
       },
       "properties": {
         "name": "[concat(parameters('webAppName'), '-plan')]"
