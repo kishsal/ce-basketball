@@ -77,11 +77,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Production approval
+      - name: Wait for output variable
         uses: jakejarvis/wait-action@v1.5.0
         with:
-          time: '24h'
-          message: 'Please approve the deployment'
+          time: '10m'
+          message: 'Waiting for APP_NAME output variable...'
+        env:
+          WAIT_FOR: APP_NAME
+
+      - name: Retrieve APP_NAME output variable
+        run: |
+          echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
 
       - name: Deploy ARM Template (prod)
         uses: azure/CLI@v1
