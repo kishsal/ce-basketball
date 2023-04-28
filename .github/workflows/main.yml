@@ -47,6 +47,11 @@ jobs:
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
           package: '.'
 
+      - name: Set output variable for app name
+        id: set_output_var
+        run: |
+          echo "::set-output name=APP_NAME::${{ env.APP_NAME }}"
+
   build-and-deploy-prod:
     runs-on: ubuntu-latest
     strategy:
