@@ -31,6 +31,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Wait for output variable
+        uses: jakejarvis/wait-action@v1.5.0
+        with:
+          time: '2m'
+          message: 'Waiting for APP_NAME output variable...'
+        env:
+          WAIT_FOR: APP_NAME
+
+      - name: Retrieve APP_NAME output variable
+        run: |
+          echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
+
       - name: Deploy ARM Template (dev)
         uses: azure/CLI@v1
         with:
@@ -80,7 +92,7 @@ jobs:
       - name: Wait for output variable
         uses: jakejarvis/wait-action@v1.5.0
         with:
-          time: '10m'
+          time: '2m'
           message: 'Waiting for APP_NAME output variable...'
         env:
           WAIT_FOR: APP_NAME
