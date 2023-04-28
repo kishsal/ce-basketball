@@ -46,11 +46,11 @@ jobs:
 
     - name: Production approval
       if: matrix.environment.environment_name == 'prod'
-      uses: azure/app-service-manage@v0
+      uses: klaas4/gh-wait@v1.4.0
       with:
-        azureSubscription: ${{ secrets.AZURE_SUBSCRIPTION }}
-        action: 'approve'
-        app-name: ${{ env.APP_NAME }}
+        message: 'Please approve the deployment'
+        wait_for: 'approval'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy ARM Template (Development)
       if: github.ref == 'refs/heads/dev'
