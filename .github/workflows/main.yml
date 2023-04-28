@@ -46,11 +46,11 @@ jobs:
 
     - name: Production approval
       if: matrix.environment.environment_name == 'prod'
-      uses: klaas4/gh-wait@v1.4.0
+      uses: thollander/wait-for-approval@v1.0.1
       with:
-        message: 'Please approve the deployment'
-        wait_for: 'approval'
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        event: 'deployment'
+        context: 'approval'
 
     - name: Deploy ARM Template (Development)
       if: github.ref == 'refs/heads/dev'
