@@ -47,20 +47,15 @@ jobs:
         run: |
           echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App (dev)
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
-        # Deploy templates
-        with:
-          package: templates/**
-        # Deploy static files
-        with:
-          package: static/**
-        # Deploy data files
-        with:
-          package: data/**
+          package: |
+            templates/**
+            static/**
+            data/**
 
   build-and-deploy-prod:
     runs-on: ubuntu-latest
@@ -104,17 +99,12 @@ jobs:
         run: |
           echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App (prd)
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
-        # Deploy templates
-        with:
-          package: templates/**
-        # Deploy static files
-        with:
-          package: static/**
-        # Deploy data files
-        with:
-          package: data/**
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_prd }}
+          package: |
+            templates/**
+            static/**
+            data/**
