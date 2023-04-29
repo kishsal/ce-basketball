@@ -52,7 +52,7 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
-          package: 'templates,static,data'
+          package: '**/{templates,static,data}/*'
 
   build-and-deploy-prod:
     runs-on: ubuntu-latest
@@ -101,4 +101,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_prod }}
-          package: 'templates,static,data'
+          package: '**/{templates,static,data}/*'
