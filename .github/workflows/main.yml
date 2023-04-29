@@ -54,6 +54,16 @@ jobs:
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
           package: 'web'
 
+  approval:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Manual Approval
+        uses: peter-evans/wait-for-approval@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'Please approve this deployment.'
+
   build-and-deploy-prod:
     runs-on: ubuntu-latest
     strategy:
