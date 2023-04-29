@@ -21,6 +21,14 @@
       "metadata": {
         "description": "The name of the SKU for the web app plan."
       }
+    },
+    "operatingSystem": {
+      "type": "string",
+      "defaultValue": "Linux",
+      "allowedValues": ["Windows", "Linux"],
+      "metadata": {
+        "description": "The operating system for the App Service Plan. Allowed values are 'Windows' and 'Linux'."
+      }
     }
   },
   "resources": [
@@ -29,11 +37,13 @@
       "apiVersion": "2021-01-01",
       "name": "[concat(parameters('appName'), '-plan')]",
       "location": "[parameters('location')]",
-           "sku": {
+      "kind": "[parameters('operatingSystem')]",
+      "sku": {
         "name": "[parameters('appServicePlanName')]"
       },
       "properties": {
-        "name": "[concat(parameters('appName'), '-plan')]"
+        "name": "[concat(parameters('appName'), '-plan')]",
+        "reserved": "[equals(parameters('operatingSystem'), 'Linux')]"
       }
     },
     {
@@ -57,4 +67,3 @@
     }
   }
 }
-
