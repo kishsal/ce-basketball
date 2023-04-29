@@ -51,7 +51,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
+          startup-command: ''
           package: 'web'
 
   approval:
@@ -110,5 +110,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_prd }}
+          startup-command: ''
           package: 'web'
