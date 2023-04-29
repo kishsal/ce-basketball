@@ -30,6 +30,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Add Python packages to PATH
+        run: echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
 
       - name: Retrieve APP_NAME output variable (before)
         run: |
@@ -51,7 +54,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0 --timeout 600 app:app'
           package: '.'
 
   build-and-deploy-prod:
@@ -79,6 +82,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Add Python packages to PATH
+        run: echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
+
       - name: Retrieve APP_NAME output variable
         run: |
           echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
@@ -100,5 +106,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0 --timeout 600 app:app'
           package: '.'
