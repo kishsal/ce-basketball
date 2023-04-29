@@ -100,5 +100,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: ''
+          startup-command: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
           package: '.'
