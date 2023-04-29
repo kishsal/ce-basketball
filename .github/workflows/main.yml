@@ -54,7 +54,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app'
           package: '.'
 
   build-and-deploy-prod:
@@ -106,5 +106,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app'
           package: '.'
