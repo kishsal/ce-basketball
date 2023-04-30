@@ -19,6 +19,10 @@ def stats():
         game_stats = json.load(f)
     return render_template('stats.html', stats=game_stats)
 
+@app.route('/schedule')
+def schedule():
+    return render_template('schedule.html')
+
 @app.route('/api/game-stats')
 def api_game_stats():
     game_date = request.args.get('date')

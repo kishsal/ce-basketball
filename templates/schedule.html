@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basketball Stats - Roster</title>
+    <title>CE Basketball Stats - Schedule</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <!-- jQuery and Bootstrap JavaScript -->
+    <!-- jQuery, Bootstrap, and FullCalendar JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale-all.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -40,25 +45,8 @@
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h1>Team Roster</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th>Number</th>
-                    <th>Position</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for player in roster %}
-                <tr>
-                    <td>{{ player.name }}</td>
-                    <td>{{ player.number }}</td>
-                    <td>{{ player.position }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h1>Schedule</h1>
+        <div id="calendar"></div>
     </div>
 
     <!-- Footer -->
@@ -67,6 +55,36 @@
             <span class="text-muted">&copy; 2023 Basketball Stats</span>
         </div>
     </footer>
+    
+    <!-- Calendar initialization script -->
+    <script>
+      $(document).ready(function() {
+        // Initialize the calendar
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+          defaultDate: '2023-05-01', // Set the default date to May 2023
+          navLinks: true, // Can click day/week names to navigate views
+          editable: true, // Allow events to be editable
+          eventLimit: true, // Allow "more" link when too many events
+          events: [
+            // Add your events here, e.g.:
+            {
+              title: 'Game vs Team A',
+              start: '2023-05-10T10:30:00',
+              end: '2023-05-10T12:30:00'
+            },
+            {
+              title: 'Game vs Team B',
+              start: '2023-05-20T14:00:00',
+              end: '2023-05-20T16:00:00'
+            }
+          ]
+        });
+      });
+    </script>
 </body>
 </html>
-
