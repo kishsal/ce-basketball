@@ -55,14 +55,17 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app'
-          package: '.'
+          package: 'templates'
 
   build-and-deploy-prod:
     runs-on: ubuntu-latest
+    needs: build-and-deploy-dev
+    environment:
+      name: production
+      url: https://${{ env.APP_NAME }}.azurewebsites.net/
     strategy:
       matrix:
         python_version: [3.9]
-    needs: build-and-deploy-dev
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -85,10 +88,6 @@ jobs:
       - name: Add Python packages to PATH
         run: echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
 
-      - name: Retrieve APP_NAME output variable
-        run: |
-          echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
-
       - name: Deploy ARM Template (prod)
         uses: azure/CLI@v1
         with:
@@ -102,9 +101,10 @@ jobs:
         run: |
           echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
 
-      - name: Deploy to Azure Web App (prd)
+      - name: Deploy to Azure Web App (prod)
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app'
-          package: '.'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_prod }}
+          package: 'templates'
+
