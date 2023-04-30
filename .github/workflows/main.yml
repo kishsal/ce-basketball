@@ -34,10 +34,6 @@ jobs:
       - name: Add Python packages to PATH
         run: echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
 
-      - name: Retrieve APP_NAME output variable (before)
-        run: |
-          echo "APP_NAME=${{ steps.set_output_var.outputs.APP_NAME }}" >> $GITHUB_ENV
-
       - name: Deploy ARM Template (dev)
         uses: azure/CLI@v1
         with:
@@ -49,61 +45,11 @@ jobs:
       - name: Retrieve APP_NAME output variable (after)
         run: |
           echo "APP_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
+          echo "SLOT_NAME=$(az deployment group show -g wus2-ce-dev-rg -n azuredeploy --query 'properties.outputs.slotName.value' -o tsv)" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App (dev)
         uses: azure/webapps-deploy@v2
         with:
-          app-name: wus2-ce-dev-app03
-          package: '.'
-
-  build-and-deploy-prod:
-    runs-on: ubuntu-latest
-    needs: build-and-deploy-dev
-    environment:
-      name: production
-      url: https://${{ env.APP_NAME }}.azurewebsites.net/
-    strategy:
-      matrix:
-        python_version: [3.9]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Set up Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python_version }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Add Python packages to PATH
-        run: echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
-
-      - name: Deploy ARM Template (prod)
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.48.1
-          inlineScript: |
-            az group create --name wus2-ce-prd-rg --location westus2
-            az deployment group create --resource-group wus2-ce-prd-rg --template-file arm/azuredeploy.json --parameters @arm/azuredeploy.prod.parameters.json --parameters location=westus2
-            echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
-
-      - name: Retrieve APP_NAME output variable (after)
-        run: |
-          echo "APP_NAME=$(az deployment group show -g wus2-ce-prd-rg -n azuredeploy --query 'properties.outputs.appName.value' -o tsv)" >> $GITHUB_ENV
-
-      - name: Deploy to Azure Web App (prod)
-        uses: azure/webapps-deploy@v2
-        with:
           app-name: ${{ env.APP_NAME }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_prod }}
-          package: 'templates'
-
+          slot-name: ${{ env.SLOT_NAME }}
+          package: '.'
