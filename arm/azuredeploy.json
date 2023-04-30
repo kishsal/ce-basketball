@@ -90,10 +90,9 @@
             "name": "[concat(parameters('appName'), '/', parameters('slotName'))]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters                ('appName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
             ],
             "properties": {
-                "name": "[parameters('slotName')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('appName'), '-plan'))]",
                 "siteConfig": {
                     "appSettings": [],
