@@ -6,6 +6,8 @@
     <title>Basketball Stats - Game Stats</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- jQuery and Bootstrap JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -29,6 +31,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/stats">Stats</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Schedule</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -49,7 +54,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="bg-light text-center text-lg-start">
         <div class="container">
             <span class="text-muted">&copy; 2023 Basketball Stats</span>
         </div>

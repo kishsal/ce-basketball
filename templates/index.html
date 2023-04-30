@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basketball Stats</title>
+    <title>CE Basketball Stats</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- jQuery and Bootstrap JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,7 +16,7 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Basketball Stats</a>
+        <a class="navbar-brand" href="/">CE Basketball Stats</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,19 +31,42 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/stats">Stats</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Schedule</a>
+                </li>
             </ul>
         </div>
     </nav>
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h1>Welcome to the Basketball Stats Website!</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Welcome to the CE U11 Basketball Website!</h1>
+                <div class="main-content-text">
+                    <p>
+                        The CE U11 Basketball Team is a group of talented and passionate young players who are dedicated to learning and improving their basketball skills. Our team consists of boys aged 10 and 11, coming from various schools in the community.
+                    </p>
+                    <p>
+                        This website serves as a central hub for all team-related information, including roster details, game statistics, and upcoming events.
+                    </p>
+                    <p>
+                        We invite you to explore our site, support our players, and stay updated on our journey throughout the season.
+                    </p>
+                    <p>Let's go, CE U11!</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Add the ce-logo class to the img tag -->
+                <img src="{{ url_for('static', filename='images/ce_logo.png') }}" alt="CE U11 Basketball Team" class="img-fluid ce-logo">
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="bg-light text-center text-lg-start">
         <div class="container">
-            <span class="text-muted">&copy; 2023 Basketball Stats</span>
+            <span class="text-muted">&copy; 2023 CE U11 Basketball</span>
         </div>
     </footer>
 </body>
