@@ -56,7 +56,23 @@
       ],
       "properties": {
         "name": "[parameters('appName')]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('appName'), '-plan'))]"
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('appName'), '-plan'))]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "WEBSITES_PORT",
+              "value": "8000"
+            }
+          ],
+          "metadata": [
+            {
+              "name": "CURRENT_STACK",
+              "value": "python"
+            }
+          ],
+          "pythonVersion": "3.9",
+          "use32BitWorkerProcess": false
+        }
       }
     }
   ],
