@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
-      "value": "wus2-ce-dev-app01"
+      "value": "wus2-ce-app01"
     },
     "appServicePlanName": {
       "value": "S1"
