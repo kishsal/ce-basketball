@@ -53,7 +53,7 @@ jobs:
       - name: Deploy to Azure Web App (dev)
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.APP_NAME }}
+          app-name: wus2-ce-dev-app03
           startup-command: 'source /opt/python/3.9/bin/activate && gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app'
           package: '.'
 
