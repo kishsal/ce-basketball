@@ -1,16 +1,41 @@
 [
     {
-        "name": "John Doe",
-        "number": 23,
+        "name": "Kai Salgado",
+        "number": 29,
         "position": "Guard"
     },
     {
-        "name": "Jane Smith",
+        "name": "Josh",
         "number": 12,
         "position": "Forward"
     },
     {
-        "name": "Alex Brown",
+        "name": "Gabe",
+        "number": 33,
+        "position": "Center"
+    },
+    {
+        "name": "Barak",
+        "number": 33,
+        "position": "Center"
+    },
+    {
+        "name": "Adonai",
+        "number": 33,
+        "position": "Center"
+    },
+    {
+        "name": "Chase",
+        "number": 33,
+        "position": "Center"
+    },
+    {
+        "name": "Davin",
+        "number": 33,
+        "position": "Center"
+    },
+    {
+        "name": "Gabe",
         "number": 33,
         "position": "Center"
     }
