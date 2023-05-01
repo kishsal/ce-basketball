@@ -2,6 +2,7 @@
     {
         "game": 1,
         "date": "2023-04-01",
+        "team": "tpg",
         "points": 15,
         "rebounds": 8,
         "assists": 3
@@ -9,6 +10,7 @@
     {
         "game": 2,
         "date": "2023-04-05",
+        "team": "Triple Balance",
         "points": 20,
         "rebounds": 10,
         "assists": 5
@@ -16,6 +18,7 @@
     {
         "game": 3,
         "date": "2023-04-10",
+        "team": "Iconic",
         "points": 12,
         "rebounds": 7,
         "assists": 4
