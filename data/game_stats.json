@@ -1,26 +1,74 @@
 [
     {
         "game": 1,
-        "date": "2023-04-01",
-        "team": "tpg",
-        "points": 15,
-        "rebounds": 8,
-        "assists": 3
+        "date": "2023-05-06",
+        "venue": "Pink City Tournament",
+        "location": "205 Humber College Road",
+        "teams": [
+            {
+                "name": "RWI",
+                "score": 100
+            },
+            {
+                "name": "Collective",
+                "score": 95
+            }
+        ],
+        "player_stats": [
+            {
+                "player": "Kai Salgado",
+                "points": 15,
+                "rebounds": 8,
+                "assists": 3
+            }
+        ]
     },
     {
         "game": 2,
-        "date": "2023-04-05",
-        "team": "Triple Balance",
-        "points": 20,
-        "rebounds": 10,
-        "assists": 5
+        "date": "2023-05-07",
+        "venue": "Pink City Tournament",
+        "location": "50 Springside Road, Maple",
+        "teams": [
+            {
+                "name": "YAACE",
+                "score": 100
+            },
+            {
+                "name": "Collective",
+                "score": 95
+            }
+        ],
+        "player_stats": [
+            {
+                "player": "Kai Salgado",
+                "points": 15,
+                "rebounds": 8,
+                "assists": 3
+            }
+        ]
     },
     {
         "game": 3,
-        "date": "2023-04-10",
-        "team": "Iconic",
-        "points": 12,
-        "rebounds": 7,
-        "assists": 4
+        "date": "2023-05-07",
+        "venue": "Pink City Tournament",
+        "location": "50 Springside Road, Maple",
+        "teams": [
+            {
+                "name": "TPG",
+                "score": 100
+            },
+            {
+                "name": "Collective",
+                "score": 95
+            }
+        ],
+        "player_stats": [
+            {
+                "player": "Kai Salgado",
+                "points": 15,
+                "rebounds": 8,
+                "assists": 3
+            }
+        ]
     }
 ]
