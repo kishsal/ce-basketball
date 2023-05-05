@@ -17,11 +17,14 @@ def roster():
 def stats():
     with open('data/game_stats.json', 'r') as f:
         game_stats = json.load(f)
-    return render_template('stats.html', stats=game_stats)
+    game_dates = list(set([game['date'] for game in game_stats]))
+    return render_template('stats.html', game_dates=game_dates)
 
 @app.route('/schedule')
 def schedule():
-    return render_template('schedule.html')
+    with open('data/schedule_events.json', "r") as json_file:
+        schedule_events = json.load(json_file)
+    return render_template('schedule.html', schedule_events=schedule_events)
 
 @app.route('/api/game-stats')
 def api_game_stats():
@@ -32,11 +35,9 @@ def api_game_stats():
     with open('data/game_stats.json', 'r') as f:
         game_stats = json.load(f)
 
-    for game in game_stats:
-        if game['date'] == game_date:
-            return jsonify(game)
+    matching_games = [game for game in game_stats if game['date'] == game_date]
 
-    return jsonify(None)
+    return jsonify(matching_games)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -45,8 +45,8 @@
             <label for="gameDate">Select Game Date:</label>
             <select class="form-control" id="gameDate" onchange="loadGameStats()">
                 <option value="">-- Select a date --</option>
-                {% for game in stats %}
-                <option value="{{ game.date }}">{{ game.date }}</option>
+                {% for game_date in game_dates %}
+                <option value="{{ game_date }}">{{ game_date }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -70,31 +70,55 @@
 
             fetch('/api/game-stats?date=' + gameDate)
                 .then(response => response.json())
-                .then(game => {
-                    const gameStatsHtml = `
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Game</th>
-                                    <th>Date</th>
-                                    <th>Team</th>
-                                    <th>Points</th>
-                                    <th>Rebounds</th>
-                                    <th>Assists</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>${game.game}</td>
-                                    <td>${game.date}</td>
-                                    <td>${game.date}</td>
-                                    <td>${game.points}</td>
-                                    <td>${game.rebounds}</td>
-                                    <td>${game.assists}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    `;
+                .then(games => {
+                    let gameStatsHtml = '';
+
+                    games.forEach(game => {
+                        gameStatsHtml += `
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h3 class="mb-0">Game: ${game.game}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Date: ${game.date}</p>
+                                    <p>Venue: ${game.venue}</p>
+                                    <p>Location: ${game.location}</p>
+                                    <br></br>
+                                    <h4>Score:</h4>
+                                    <div class="row">
+                                        ${game.teams.map(team => `
+                                            <div class="col-md-6">
+                                                <h6>${team.name}</h6>
+                                                <p>${team.score}</p>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <br></br>
+                                    <h4>Player Stats:</h4>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Player</th>
+                                                <th>Points</th>
+                                                <th>Rebounds</th>
+                                                <th>Assists</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${game.player_stats.map(player => `
+                                                <tr>
+                                                    <td>${player.player}</td>
+                                                    <td>${player.points}</td>
+                                                    <td>${player.rebounds}</td>
+                                                    <td>${player.assists}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        `;
+                    });
 
                     document.getElementById('gameStatsContainer').innerHTML = gameStatsHtml;
                 });
