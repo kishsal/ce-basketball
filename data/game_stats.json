@@ -7,19 +7,19 @@
         "teams": [
             {
                 "name": "RWI",
-                "score": 100
+                "score": 44
             },
             {
                 "name": "Collective",
-                "score": 95
+                "score": 46
             }
         ],
         "player_stats": [
             {
                 "player": "Kai Salgado",
-                "points": 15,
-                "rebounds": 8,
-                "assists": 3
+                "points": 8,
+                "rebounds": 2,
+                "assists": 2
             }
         ]
     },
@@ -31,19 +31,19 @@
         "teams": [
             {
                 "name": "YAACE",
-                "score": 100
+                "score": 44
             },
             {
                 "name": "Collective",
-                "score": 95
+                "score": 24
             }
         ],
         "player_stats": [
             {
                 "player": "Kai Salgado",
-                "points": 15,
-                "rebounds": 8,
-                "assists": 3
+                "points": 4,
+                "rebounds": 0,
+                "assists": 0
             }
         ]
     },
@@ -55,19 +55,19 @@
         "teams": [
             {
                 "name": "TPG",
-                "score": 100
+                "score": 56
             },
             {
                 "name": "Collective",
-                "score": 95
+                "score": 28
             }
         ],
         "player_stats": [
             {
                 "player": "Kai Salgado",
-                "points": 15,
-                "rebounds": 8,
-                "assists": 3
+                "points": 6,
+                "rebounds": 0,
+                "assists": 0
             }
         ]
     }
