@@ -70,5 +70,53 @@
                 "assists": 0
             }
         ]
+    },
+    {
+        "game": 4,
+        "date": "2023-06-25",
+        "venue": "Coalition",
+        "location": "HoopDome",
+        "teams": [
+            {
+                "name": "CKATT",
+                "score": 43
+            },
+            {
+                "name": "Collective",
+                "score": 27
+            }
+        ],
+        "player_stats": [
+            {
+                "player": "Kai Salgado",
+                "points": 2,
+                "rebounds": 0,
+                "assists": 0
+            }
+        ]
+    },
+    {
+        "game": 5,
+        "date": "2023-06-25",
+        "venue": "Coalition",
+        "location": "HoopDome",
+        "teams": [
+            {
+                "name": "RWI",
+                "score": 39
+            },
+            {
+                "name": "Collective",
+                "score": 33
+            }
+        ],
+        "player_stats": [
+            {
+                "player": "Kai Salgado",
+                "points": 6,
+                "rebounds": 0,
+                "assists": 0
+            }
+        ]
     }
 ]
