@@ -13,5 +13,50 @@
         "title": "TPG vs Collective",
         "start": "2023-05-07T14:20:00",
         "location": "50 Springside Road"  
+    },
+    {
+        "title": "CKATT vs Collective",
+        "start": "2023-06-25T10:15:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "RWI vs Collective",
+        "start": "2023-06-25T12:45:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Guelph Elite vs Collective",
+        "start": "2023-07-08T14:00:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Time 2 Hoop vs Collective",
+        "start": "2023-07-08T17:45:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Brampton Warriors vs Collective",
+        "start": "2023-07-16T12:45:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Top Tier vs Collective",
+        "start": "2023-07-16T17:45:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "GT Hoops vs Collective",
+        "start": "2023-07-22T10:15:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Born 2 StandOut vs Collective",
+        "start": "2023-07-22T14:00:00",
+        "location": "HoopDome"  
+    },
+    {
+        "title": "Northern Kings vs Collective",
+        "start": "2023-07-23T11:30:00",
+        "location": "Senator O'Connor College"  
     }
 ]
